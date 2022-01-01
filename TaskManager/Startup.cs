@@ -23,6 +23,7 @@ namespace TaskManager
         {
             string connectionString = Configuration.GetConnectionString("default");
             services.AddDbContext<AccountDbContext>(c => c.UseSqlServer(connectionString));
+            services.AddDbContext<TaskDbContext>(c => c.UseSqlServer(connectionString));
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AccountDbContext>();
 

@@ -8,8 +8,8 @@ using TaskManager.Models.AppDBContext;
 
 namespace TaskManager.Migrations
 {
-    [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AccountDbContext))]
+    partial class AccountDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
