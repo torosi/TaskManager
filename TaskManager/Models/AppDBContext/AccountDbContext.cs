@@ -7,7 +7,7 @@ namespace TaskManager.Models.AppDBContext
     {
         private readonly DbContextOptions _options;
 
-        public AccountDbContext(DbContextOptions options) : base(options)
+        public AccountDbContext(DbContextOptions<AccountDbContext> options) : base(options)
         {
             _options = options;
         }
