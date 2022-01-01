@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TaskManager.Models.AppDBContext
 {
-    public class AppDBContext : IdentityDbContext
+    public class AccountDbContext : IdentityDbContext
     {
         private readonly DbContextOptions _options;
 
-        public AppDBContext(DbContextOptions options) : base(options)
+        public AccountDbContext(DbContextOptions options) : base(options)
         {
             _options = options;
         }
