@@ -5,11 +5,14 @@ namespace TaskManager.Models.AppDBContext
     public class TaskDbContext : DbContext
     {
 
-        public TaskDbContext()
+        private readonly DbContextOptions _options;
+
+        public TaskDbContext(DbContextOptions options) : base(options)
         {
+            _options = options;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
 
