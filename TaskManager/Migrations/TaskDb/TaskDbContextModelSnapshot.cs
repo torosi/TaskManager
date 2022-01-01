@@ -34,6 +34,9 @@ namespace TaskManager.Migrations.TaskDb
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tasks");

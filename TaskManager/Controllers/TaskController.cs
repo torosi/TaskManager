@@ -51,7 +51,10 @@ namespace TaskManager.Controllers
             var userId = _userManager.GetUserId(User);
             var tasks = _context.Tasks.ToList().Where(x => x.UserId == userId);
 
-            var viewModels = new TaskViewModels();
+            var viewModels = new TaskViewModels()
+            {
+                Tasks = new List<TaskViewModel>()
+            };
 
             foreach (var t in tasks)
             {

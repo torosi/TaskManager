@@ -9,8 +9,8 @@ using TaskManager.Models.AppDBContext;
 namespace TaskManager.Migrations.TaskDb
 {
     [DbContext(typeof(TaskDbContext))]
-    [Migration("20220101170309_TaskDBMigration")]
-    partial class TaskDBMigration
+    [Migration("20220101185320_TaskManagerDbMigration")]
+    partial class TaskManagerDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,9 @@ namespace TaskManager.Migrations.TaskDb
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
