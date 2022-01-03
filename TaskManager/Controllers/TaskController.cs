@@ -35,10 +35,12 @@ namespace TaskManager.Controllers
 
             Task model = new Task()
             {
+                Id = 0,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 Priority = viewModel.Priority,
-                UserId = _userManager.GetUserId(User)
+                UserId = _userManager.GetUserId(User),
+                IsCompleted = false
             };
 
             _context.Add(model);
@@ -51,26 +53,44 @@ namespace TaskManager.Controllers
             var userId = _userManager.GetUserId(User);
             var tasks = _context.Tasks.ToList().Where(x => x.UserId == userId);
 
-            var viewModels = new TaskViewModels()
-            {
-                Tasks = new List<TaskViewModel>()
-            };
+            var viewModels = new List<TaskViewModel>();
 
             foreach (var t in tasks)
             {
                 var viewModel = new TaskViewModel()
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     Priority = t.Priority,
                     Description = t.Description,
-                    UserId = t.UserId
+                    UserId = t.UserId,
+                    IsCompleted = t.IsCompleted
                 };
-                viewModels.Tasks.Add(viewModel);
+                viewModels.Add(viewModel);
             }
 
-            viewModels.Tasks.OrderBy(x => x.Priority);
+            viewModels.OrderBy(x => x.Priority);
 
             return View("MyTasks", viewModels);
+        }
+
+        [HttpPost]
+        public IActionResult MarkCompleted(IEnumerable<TaskViewModel> tasks)
+        {
+            if (!ModelState.IsValid)
+                return View("MyTasks", tasks);
+
+            foreach (var t in tasks.Where(m => m.IsCompleted == true))
+            {
+                var result = _context.Tasks.SingleOrDefault(o => o.Id == t.Id);
+                if (result != null)
+                {
+                    result.IsCompleted = true;
+                    _context.SaveChanges();
+                }
+            }
+
+            return View("MyTasks", tasks);
         }
 
     }

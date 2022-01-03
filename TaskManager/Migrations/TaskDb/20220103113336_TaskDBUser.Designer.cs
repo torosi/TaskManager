@@ -9,7 +9,7 @@ using TaskManager.Models.AppDBContext;
 namespace TaskManager.Migrations.TaskDb
 {
     [DbContext(typeof(TaskDbContext))]
-    [Migration("20220103090542_TaskDBUser")]
+    [Migration("20220103113336_TaskDBUser")]
     partial class TaskDBUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace TaskManager.Migrations.TaskDb
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
