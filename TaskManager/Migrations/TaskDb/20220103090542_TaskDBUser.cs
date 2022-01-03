@@ -2,7 +2,7 @@
 
 namespace TaskManager.Migrations.TaskDb
 {
-    public partial class TaskManagerDbMigration : Migration
+    public partial class TaskDBUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

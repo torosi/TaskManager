@@ -9,8 +9,8 @@ using TaskManager.Models.AppDBContext;
 namespace TaskManager.Migrations.TaskDb
 {
     [DbContext(typeof(TaskDbContext))]
-    [Migration("20220101185320_TaskManagerDbMigration")]
-    partial class TaskManagerDbMigration
+    [Migration("20220103090542_TaskDBUser")]
+    partial class TaskDBUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

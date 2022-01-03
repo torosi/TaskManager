@@ -26,6 +26,13 @@ namespace TaskManager
             services.AddDbContext<TaskDbContext>(c => c.UseSqlServer(connectionString));
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AccountDbContext>();
+            services
+                .AddAuthentication()
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/login";
+                    options.LogoutPath = "/Account/logout";
+                });
 
             services.AddControllersWithViews();
         }
