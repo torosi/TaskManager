@@ -26,8 +26,11 @@
         @Html.TextBoxFor(m => m.Priority, new { @class = "form-control" })
         <span asp-validation-for="Priority"></span>
     </div>
-    <div>
-        @Html.DropDownListFor(m => m.Project, Model.Project, new { @class = "form-control" })
+
+    <div class="form-group">
+        <label for="Projects">Projects</label>
+        @Html.DropDownList("Projects", new SelectList(Model.Projects), new {@class="form-control form-select"})
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="submit" class="btn btn-primary save-button">Submit</button>
 }

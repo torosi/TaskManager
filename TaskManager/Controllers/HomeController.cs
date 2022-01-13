@@ -3,22 +3,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Linq;
 using TaskManager.Models;
+using TaskManager.Models.AppDBContext;
 
 namespace TaskManager.Controllers
 {
     [Authorize]
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly TaskDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) : base(userManager, signInManager)
+        public HomeController(TaskDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) : base(userManager, signInManager)
         {
-            _logger = logger;
+            _context = context;
         }
 
     public IActionResult Index()
         {
+            var userId = _userManager.GetUserId(User);
+            var tasks = _context.Tasks.ToList().Where(x => x.UserId == userId);
+            ViewBag.Count = tasks.Count();
             return View();
         }
 

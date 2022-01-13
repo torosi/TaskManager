@@ -14,7 +14,7 @@ namespace TaskManager.Models.ViewModels
         public int Priority { get; set; }
         public string UserId { get; set; }
         public int ProjectId { get; set; }
-        public SelectList Project { get; set; }
+        public IEnumerable<int> Projects { get; set; }
     }
 
     public class TaskViewModels //collection of tasks

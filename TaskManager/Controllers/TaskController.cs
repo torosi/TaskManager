@@ -25,15 +25,12 @@ namespace TaskManager.Controllers
         [HttpGet]
         public IActionResult AddNewTask()
         {
-            var projects = _context.Projects.Select(a => new SelectListItem
-                                  {
-                                      Value = a.Id.ToString(),
-                                      Text = a.Name
-                                  }).ToList(); ; //get a list of projects from the db
-            var viewModel = new TaskViewModel() //create a view model to be passed into the view. The view is expecting a taskviewmodel. The Project property is being assigned the returned list.
-            {
-                Project = new SelectList(projects)
+            var projects = _context.Projects.ToList();
+
+            var viewModel = new TaskViewModel() {
+                Projects = projects.Select(x => x.Id)
             };
+
             return View(viewModel); //passing in the newly created view model that now contains a list of projects
         }
 
@@ -43,19 +40,21 @@ namespace TaskManager.Controllers
             if (!ModelState.IsValid) //if model state isnt valid, return view. Do Nothing else
                 return View();
 
+            var project = viewModel.Projects.FirstOrDefault();
+
             Task model = new Task()
             {
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 Priority = viewModel.Priority,
                 UserId = _userManager.GetUserId(User),
-                ProjectId = viewModel.ProjectId
+                ProjectId = project
             };
 
             _context.Add(model);
             _context.SaveChanges();
 
-            return RedirectToAction("AddNewTask");
+            return RedirectToAction("MyTasks");
         }
 
         public IActionResult MyTasks() {
