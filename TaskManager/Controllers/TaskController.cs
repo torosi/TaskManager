@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using TaskManager.Models;
@@ -24,13 +25,22 @@ namespace TaskManager.Controllers
         [HttpGet]
         public IActionResult AddNewTask()
         {
-            return View();
+            var projects = _context.Projects.Select(a => new SelectListItem
+                                  {
+                                      Value = a.Id.ToString(),
+                                      Text = a.Name
+                                  }).ToList(); ; //get a list of projects from the db
+            var viewModel = new TaskViewModel() //create a view model to be passed into the view. The view is expecting a taskviewmodel. The Project property is being assigned the returned list.
+            {
+                Project = new SelectList(projects)
+            };
+            return View(viewModel); //passing in the newly created view model that now contains a list of projects
         }
 
         [HttpPost]
         public IActionResult AddNewTask(TaskViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) //if model state isnt valid, return view. Do Nothing else
                 return View();
 
             Task model = new Task()
@@ -38,7 +48,8 @@ namespace TaskManager.Controllers
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 Priority = viewModel.Priority,
-                UserId = _userManager.GetUserId(User)
+                UserId = _userManager.GetUserId(User),
+                ProjectId = viewModel.ProjectId
             };
 
             _context.Add(model);
@@ -49,7 +60,7 @@ namespace TaskManager.Controllers
 
         public IActionResult MyTasks() {
             var userId = _userManager.GetUserId(User);
-            var tasks = _context.Tasks.ToList().Where(x => x.UserId == userId);
+            var tasks = _context.Tasks.ToList().Where(x => x.UserId == userId); //gets the tasks from the database with the user ID
 
             var viewModels = new TaskViewModels()
             {
@@ -63,7 +74,8 @@ namespace TaskManager.Controllers
                     Name = t.Name,
                     Priority = t.Priority,
                     Description = t.Description,
-                    UserId = t.UserId
+                    UserId = t.UserId,
+                    ProjectId = t.ProjectId
                 };
                 viewModels.Tasks.Add(viewModel);
             }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskManager.Migrations
 {
-    public partial class IdentityDBUser : Migration
+    public partial class IdentityDBUse : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

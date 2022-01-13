@@ -10,7 +10,7 @@ namespace TaskManager.Models.AppDBContext
         public TaskDbContext(DbContextOptions<TaskDbContext> options) : base(options)
         {
             _options = options;
-        }
+        }   
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,6 +21,7 @@ namespace TaskManager.Models.AppDBContext
         }
 
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
     }
 }

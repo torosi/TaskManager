@@ -1,0 +1,21 @@
+﻿@model TaskManager.Models.ViewModels.ProjectViewModel
+
+@{
+    ViewBag.Title = "Create New Project";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">@ViewBag.Title</h1>
+</div>
+
+@using (Html.BeginForm("CreateNewProject", "Project", FormMethod.Post))
+{
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
