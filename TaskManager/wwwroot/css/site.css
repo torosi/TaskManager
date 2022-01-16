@@ -1,21 +1,35 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+main{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: left;
-  word-break: break-all;
+    white-space: normal;
+    text-align: left;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+
+.active{
+    color: #ffffff !important;
+}
+
+.card-full-height{
+    height: 100% !important;
+}
+
+.container-half-height {
+    height: calc(50% - 1.5rem/2) !important;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -28,7 +42,11 @@ a {
 -------------------------------------------------- */
 
 .sidebar {
-    height: calc(100vh - 3rem);
+    height: 100vh;
+    
+}
+.sidebar .nav-link:hover {
+    color: #ffffff !important;
 }
 
 .sidebar-sticky {

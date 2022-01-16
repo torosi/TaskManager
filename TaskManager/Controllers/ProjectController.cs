@@ -1,27 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TaskManager.Models;
 using TaskManager.Models.AppDBContext;
 using TaskManager.Models.ViewModels;
 
 namespace TaskManager.Controllers
 {
-    public class ProjectController : Controller
+    public class ProjectController : BaseController
     {
 
-        private readonly TaskDbContext _context; //_means that it is useed throughout the class. Is only a naming convention
-
-        public ProjectController(TaskDbContext context)
+        public ProjectController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, TaskDbContext taskDbContext) : base(userManager, signInManager, taskDbContext)
         {
-            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+
+            var viewModels = new ProjectViewModels()
+            {
+                Projects = new List<ProjectViewModel>()
+            };
+
+            foreach (var p in _context.Projects.ToList())
+            {
+                var viewModel = new ProjectViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    UserId = p.UserId,
+                };
+                viewModels.Projects.Add(viewModel);
+            }
+
+            return View(viewModels);
         }
 
         [HttpGet]
@@ -39,13 +52,14 @@ namespace TaskManager.Controllers
             Project model = new Project()
             {
                 Id = project.Id,
-                Name = project.Name
+                Name = project.Name,
+                UserId = _userManager.GetUserId(User)
             };
 
             _context.Add(model);
             _context.SaveChanges();
 
-            return RedirectToAction("CreateNewProject");
+            return RedirectToAction("Index");
 
         }
 

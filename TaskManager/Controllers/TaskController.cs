@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaskManager.Models;
@@ -9,17 +9,11 @@ using TaskManager.Models.ViewModels;
 
 namespace TaskManager.Controllers
 {
-    public class TaskController : Controller
+    public class TaskController : BaseController
     {
 
-        private readonly TaskDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-
-
-        public TaskController(TaskDbContext context, UserManager<IdentityUser> userManager)
+        public TaskController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, TaskDbContext taskDbContext) : base(userManager, signInManager, taskDbContext)
         {
-            _context = context;
-            _userManager = userManager;
         }
 
         [HttpGet]
@@ -48,7 +42,8 @@ namespace TaskManager.Controllers
                 Description = viewModel.Description,
                 Priority = viewModel.Priority,
                 UserId = _userManager.GetUserId(User),
-                ProjectId = project
+                ProjectId = project,
+                CreatedDate = DateTime.Now
             };
 
             _context.Add(model);
@@ -74,7 +69,8 @@ namespace TaskManager.Controllers
                     Priority = t.Priority,
                     Description = t.Description,
                     UserId = t.UserId,
-                    ProjectId = t.ProjectId
+                    ProjectId = t.ProjectId,
+                    CreatedDate = t.CreatedDate
                 };
                 viewModels.Tasks.Add(viewModel);
             }

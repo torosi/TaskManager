@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.Models
 {
@@ -12,6 +13,7 @@ namespace TaskManager.Models
         [ForeignKey("Project")]
         public int ProjectId { get; set; }
         public Project Project { get; set; }
-
+        public DateTime CreatedDate { get; set; }
+        public DateTime CompletedDate { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TaskManager.Models.AppDBContext;
 using TaskManager.Models.ViewModel;
 
 namespace TaskManager.Controllers
@@ -9,7 +10,7 @@ namespace TaskManager.Controllers
     public class AccountController : BaseController
     {
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) : base(userManager, signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, TaskDbContext taskDbContext) : base(userManager, signInManager, taskDbContext)
         {
         }
 
