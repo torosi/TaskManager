@@ -65,6 +65,7 @@ namespace TaskManager.Controllers
             {
                 var viewModel = new TaskViewModel()
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     Priority = t.Priority,
                     Description = t.Description,
@@ -78,6 +79,18 @@ namespace TaskManager.Controllers
             viewModels.Tasks.OrderBy(x => x.Priority);
 
             return View("MyTasks", viewModels);
+        }
+
+        [HttpPost]
+        public IActionResult EditTask(TaskViewModel task)
+        {
+            return View(task);
+        }
+        [HttpGet]
+        public IActionResult EditTask(int id)
+        {
+            var task = _context.Tasks.ToList().Where(x => x.Id == id).FirstOrDefault();
+            return View(task);
         }
 
     }

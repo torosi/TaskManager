@@ -33,6 +33,7 @@ namespace TaskManager.Controllers
                 };
                 viewModels.Projects.Add(viewModel);
             }
+            viewModels.Projects = viewModels.Projects.Where(x => x.UserId == _userManager.GetUserId(User)).ToList();
 
             return View(viewModels);
         }

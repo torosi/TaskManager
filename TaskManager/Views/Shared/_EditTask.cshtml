@@ -1,0 +1,9 @@
+﻿@model TaskManager.Models.ViewModels.TaskViewModel
+@{
+    Layout = null;
+}
+
+<ul class="list-group mb-2">
+    <li class="list-group-item list-group-item-action d-flex gap-3 py-3 border-0 shadow-sm">@Model.Name</li>
+    @Html.ActionLink("EditTask", "Task", new { Id = Model.Id})
+</ul>

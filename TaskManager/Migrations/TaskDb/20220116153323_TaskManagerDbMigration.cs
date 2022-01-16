@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskManager.Migrations.TaskDb
 {
-    public partial class TaskDBUser : Migration
+    public partial class TaskManagerDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
